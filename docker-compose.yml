@@ -1,0 +1,22 @@
+services:
+  inventory:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - inventory_data:/data
+    environment:
+      - DB_TYPE=sqlite
+      - DB_NAME=/data/inventory.db
+      # To use Postgres, uncomment below and add a DB service
+      # - DB_TYPE=postgres
+      # - DB_HOST=db
+      # - DB_USER=postgres
+      # - DB_PASSWORD=yourpassword
+      # - DB_NAME=grocerydb
+      # - DB_PORT=5432
+
+volumes:
+  inventory_data:

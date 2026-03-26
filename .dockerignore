@@ -1,0 +1,10 @@
+node_modules
+bin
+.git
+.DS_Store
+*.log
+vendor
+# Ignore build artifacts but keep Docker configs
+build/*
+!build/package
+
