@@ -1,0 +1,36 @@
+name: inventory
+services:
+  inventory:
+    image: ghcr.io/dhawalhost/inventory:main
+    container_name: inventory
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - "8080:8080"
+    volumes:
+      - /DATA/AppData/inventory:/data
+    environment:
+      - DB_TYPE=sqlite
+      - DB_NAME=/data/inventory.db
+      - GIN_MODE=release
+    
+    # CasaOS specific metadata for the App Store UI
+    labels:
+      icon: https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/package.svg
+      title: "Home Inventory"
+      description: "A modern home inventory tracker with built-in shopping list."
+      tag: "Utility"
+      port: 8080
+      index: /
+      # Ensure the data directory exists and has correct permissions
+      x-casaos:
+        architectures:
+          - amd64
+          - arm64
+        main: inventory
+        description:
+          en_us: "Track items you have at home and manage what needs to be ordered with an integrated request list."
+
+networks:
+  default:
+    external: false
